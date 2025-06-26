@@ -1,5 +1,6 @@
 #include "Camera.hpp"
 #include <cmath>
+#include <algorithm>
 
 Camera::Camera() 
     : position(0, 0, -5), target(0, 0, 0), up(0, 1, 0), 
@@ -50,7 +51,7 @@ void Camera::rotate(float deltaX, float deltaY) {
     rotationY += deltaY;
     
     // Clamp vertical rotation
-    rotationX = std::max(-M_PI/2 + 0.1f, std::min(M_PI/2 - 0.1f, rotationX));
+    rotationX = std::max(-float(M_PI)/2.0f + 0.1f, std::min(float(M_PI)/2.0f - 0.1f, rotationX));
     
     updatePosition();
 }
