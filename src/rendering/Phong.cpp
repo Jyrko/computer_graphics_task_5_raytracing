@@ -5,6 +5,7 @@
 
 #include "../scene/Light.hpp"
 
+// I = Ia·ka + Σ(kd·Ii·max(n·li, 0) + ks·Ii·max(v·ri, 0)^m)
 Color PhongShader::calculateColor(const Vector3& point, const Vector3& normal,
                                   const Vector3& viewDirection, const Material& material,
                                   const std::vector<Light>& lights, const Color& ambientLight) {

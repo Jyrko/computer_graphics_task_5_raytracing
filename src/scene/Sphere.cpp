@@ -15,11 +15,13 @@ Sphere::Sphere(const Vector3& center, float radius, const Material& material)
     : center(center), radius(radius), material(material) {}
 
 float Sphere::intersect(const Ray& ray) const {
-    Vector3 oc = ray.origin - center;
+    // ||p + tv - ps|| = r
+    Vector3 vecOrgToSpereCenter = ray.origin - center;
 
-    float a = ray.direction.dot(ray.direction);
-    float b = 2.0f * oc.dot(ray.direction);
-    float c = oc.dot(oc) - radius * radius;
+        // Quadratic equation coefficients: t² + 2t·v·d + ||d||² - r² = 0
+    float a = ray.direction.dot(ray.direction);           // coefficient of t²
+    float b = 2.0f * ray.direction.dot(vecOrgToSpereCenter);                // coefficient of t (2t·v·d)
+    float c = vecOrgToSpereCenter.dot(vecOrgToSpereCenter) - radius * radius;                 // constant term (||d||² - r²)
 
     float discriminant = b * b - 4 * a * c;
 

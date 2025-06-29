@@ -20,12 +20,14 @@ void Scene::setBackgroundColor(const Color& background) {
     backgroundColor = background;
 }
 
+// finds the closest intersection of a way with all objects in the scene
+// 
 Scene::HitInfo Scene::raycast(const Ray& ray) const {
     HitInfo closestHit;
     float closestT = std::numeric_limits<float>::max();
 
     for (const auto& sphere : spheres) {
-        float t = sphere.intersect(ray);
+        float t = sphere.intersect(ray); // ||pt - ps|| = ||p + tv - ps|| = r
         if (t > 0 && t < closestT) {
             closestT = t;
             closestHit.hit = true;

@@ -30,23 +30,23 @@ Matrix4 Camera::getInverseViewMatrix() const {
 }
 
 Ray Camera::getRay(int x, int y, int width, int height) const {
-    // Calculate camera coordinate system
     Vector3 cZ = (target - position).normalized();
     Vector3 cX = up.cross(cZ).normalized();
     Vector3 cY = cZ.cross(cX).normalized();
 
-    // Calculate image plane dimensions
+    // Calculate image plane center and distance (Section 4.1)
     float cx = (width - 1) / 2.0f;
     float cy = (height - 1) / 2.0f;
-    float d = width / (2.0f * std::tan(fieldOfView / 2.0f));
+    float d = (width / 2.0f) * std::cos(fieldOfView / 2.0f) / std::sin(fieldOfView / 2.0f);
 
-    // Calculate point on image plane
-    float px = x - cx;
-    float py = -(y - cy);  // Flip Y coordinate
+    Vector3 pPrime = Vector3(0, 0, 0);
 
-    // Create ray in camera space
-    Vector3 rayDirection = px * cX + py * cY + d * cZ;
-    rayDirection.normalize();
+    Vector3 q = Vector3(x - cx, -y + cy, d);  // q = [x-cx, -(y-cy), d]^T
+
+    Vector3 vPrime = (q - pPrime).normalized();  // v' = (q - p') / ||q - p'||
+
+    // Transform to world coordinates using camera basis vectors
+    Vector3 rayDirection = vPrime.x * cX + vPrime.y * cY + vPrime.z * cZ; // v = M⁻¹ * v'
 
     return Ray(position, rayDirection);
 }

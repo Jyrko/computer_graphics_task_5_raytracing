@@ -72,14 +72,12 @@ void Renderer::cleanup() {
 }
 
 void Renderer::render(const Scene& scene, const Camera& camera) {
-    clear(scene.backgroundColor);
-
-    // Ray tracing for each pixel
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             Ray ray = camera.getRay(x, y, width, height);
             Scene::HitInfo hit = scene.raycast(ray);
 
+            // if no intersection found, the corresponding pixel should be filled with the background color.
             Color pixelColor = scene.backgroundColor;
 
             if (hit.hit) {
