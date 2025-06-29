@@ -1,4 +1,5 @@
 #include "Color.hpp"
+
 #include <algorithm>
 
 Color::Color() : r(0), g(0), b(0) {}
@@ -34,11 +35,8 @@ Color& Color::operator*=(float scalar) {
 }
 
 Color Color::clamp() const {
-    return Color(
-        std::max(0.0f, std::min(1.0f, r)),
-        std::max(0.0f, std::min(1.0f, g)),
-        std::max(0.0f, std::min(1.0f, b))
-    );
+    return Color(std::max(0.0f, std::min(1.0f, r)), std::max(0.0f, std::min(1.0f, g)),
+                 std::max(0.0f, std::min(1.0f, b)));
 }
 
 uint32_t Color::toRGB() const {

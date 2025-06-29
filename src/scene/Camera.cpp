@@ -1,15 +1,25 @@
 #include "Camera.hpp"
-#include <cmath>
-#include <algorithm>
 
-Camera::Camera() 
-    : position(0, 0, -5), target(0, 0, 0), up(0, 1, 0), 
-      fieldOfView(45.0f * M_PI / 180.0f), distance(5.0f), 
-      rotationX(0), rotationY(0) {}
+#include <algorithm>
+#include <cmath>
+
+Camera::Camera()
+    : position(0, 0, -5),
+      target(0, 0, 0),
+      up(0, 1, 0),
+      fieldOfView(45.0f * M_PI / 180.0f),
+      distance(5.0f),
+      rotationX(0),
+      rotationY(0) {}
 
 Camera::Camera(const Vector3& position, const Vector3& target, const Vector3& up, float fov)
-    : position(position), target(target), up(up), fieldOfView(fov),
-      distance((position - target).length()), rotationX(0), rotationY(0) {}
+    : position(position),
+      target(target),
+      up(up),
+      fieldOfView(fov),
+      distance((position - target).length()),
+      rotationX(0),
+      rotationY(0) {}
 
 Matrix4 Camera::getViewMatrix() const {
     return Matrix4::lookAt(position, target, up);
@@ -24,20 +34,20 @@ Ray Camera::getRay(int x, int y, int width, int height) const {
     Vector3 cZ = (target - position).normalized();
     Vector3 cX = up.cross(cZ).normalized();
     Vector3 cY = cZ.cross(cX).normalized();
-    
+
     // Calculate image plane dimensions
     float cx = (width - 1) / 2.0f;
     float cy = (height - 1) / 2.0f;
     float d = width / (2.0f * std::tan(fieldOfView / 2.0f));
-    
+
     // Calculate point on image plane
     float px = x - cx;
-    float py = -(y - cy); // Flip Y coordinate
-    
+    float py = -(y - cy);  // Flip Y coordinate
+
     // Create ray in camera space
     Vector3 rayDirection = px * cX + py * cY + d * cZ;
     rayDirection.normalize();
-    
+
     return Ray(position, rayDirection);
 }
 
@@ -49,10 +59,11 @@ void Camera::setDistance(float newDistance) {
 void Camera::rotate(float deltaX, float deltaY) {
     rotationX += deltaX;
     rotationY += deltaY;
-    
+
     // Clamp vertical rotation
-    rotationX = std::max(-float(M_PI)/2.0f + 0.1f, std::min(float(M_PI)/2.0f - 0.1f, rotationX));
-    
+    rotationX =
+        std::max(-float(M_PI) / 2.0f + 0.1f, std::min(float(M_PI) / 2.0f - 0.1f, rotationX));
+
     updatePosition();
 }
 
@@ -61,6 +72,6 @@ void Camera::updatePosition() {
     float x = distance * std::cos(rotationX) * std::sin(rotationY);
     float y = distance * std::sin(rotationX);
     float z = distance * std::cos(rotationX) * std::cos(rotationY);
-    
+
     position = target + Vector3(x, y, z);
 }

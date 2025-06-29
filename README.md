@@ -36,6 +36,29 @@ make
 ./raytracing
 ```
 
+## Code Formatting
+
+This project uses clang-format for consistent code style.
+
+### Format all source files:
+```bash
+# Using the script
+./format.sh
+
+# Or using CMake
+make format
+```
+
+### Check formatting without modifying files:
+```bash
+make format-check
+```
+
+### Install clang-format (if not already installed):
+```bash
+brew install clang-format
+```
+
 ## Controls
 
 - **Left mouse drag**: Rotate camera around the scene

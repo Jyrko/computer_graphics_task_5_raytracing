@@ -1,6 +1,7 @@
 #include "Matrix4.hpp"
-#include <cstring>
+
 #include <cmath>
+#include <cstring>
 
 Matrix4::Matrix4() {
     setIdentity();
@@ -36,7 +37,7 @@ Vector3 Matrix4::operator*(const Vector3& vector) const {
     float y = m[1][0] * vector.x + m[1][1] * vector.y + m[1][2] * vector.z + m[1][3];
     float z = m[2][0] * vector.x + m[2][1] * vector.y + m[2][2] * vector.z + m[2][3];
     float w = m[3][0] * vector.x + m[3][1] * vector.y + m[3][2] * vector.z + m[3][3];
-    
+
     if (w != 0) {
         return Vector3(x / w, y / w, z / w);
     }
@@ -113,13 +114,25 @@ Matrix4 Matrix4::lookAt(const Vector3& position, const Vector3& target, const Ve
     Vector3 cZ = (target - position).normalized();
     Vector3 cX = up.cross(cZ).normalized();
     Vector3 cY = cZ.cross(cX).normalized();
-    
+
     Matrix4 result;
-    result.m[0][0] = cX.x; result.m[0][1] = cX.y; result.m[0][2] = cX.z; result.m[0][3] = -cX.dot(position);
-    result.m[1][0] = cY.x; result.m[1][1] = cY.y; result.m[1][2] = cY.z; result.m[1][3] = -cY.dot(position);
-    result.m[2][0] = cZ.x; result.m[2][1] = cZ.y; result.m[2][2] = cZ.z; result.m[2][3] = -cZ.dot(position);
-    result.m[3][0] = 0;    result.m[3][1] = 0;    result.m[3][2] = 0;    result.m[3][3] = 1;
-    
+    result.m[0][0] = cX.x;
+    result.m[0][1] = cX.y;
+    result.m[0][2] = cX.z;
+    result.m[0][3] = -cX.dot(position);
+    result.m[1][0] = cY.x;
+    result.m[1][1] = cY.y;
+    result.m[1][2] = cY.z;
+    result.m[1][3] = -cY.dot(position);
+    result.m[2][0] = cZ.x;
+    result.m[2][1] = cZ.y;
+    result.m[2][2] = cZ.z;
+    result.m[2][3] = -cZ.dot(position);
+    result.m[3][0] = 0;
+    result.m[3][1] = 0;
+    result.m[3][2] = 0;
+    result.m[3][3] = 1;
+
     return result;
 }
 
@@ -149,7 +162,7 @@ float Matrix4::get(int row, int col) const {
 // Simplified inverse for view matrices (orthonormal)
 Matrix4 Matrix4::inverse() const {
     Matrix4 result;
-    
+
     // For orthonormal matrices (like camera matrices), inverse = transpose of rotation part
     // and negate translation part
     for (int i = 0; i < 3; i++) {
@@ -157,10 +170,13 @@ Matrix4 Matrix4::inverse() const {
             result.m[i][j] = m[j][i];
         }
     }
-    
-    result.m[0][3] = -(m[0][3] * result.m[0][0] + m[1][3] * result.m[0][1] + m[2][3] * result.m[0][2]);
-    result.m[1][3] = -(m[0][3] * result.m[1][0] + m[1][3] * result.m[1][1] + m[2][3] * result.m[1][2]);
-    result.m[2][3] = -(m[0][3] * result.m[2][0] + m[1][3] * result.m[2][1] + m[2][3] * result.m[2][2]);
-    
+
+    result.m[0][3] =
+        -(m[0][3] * result.m[0][0] + m[1][3] * result.m[0][1] + m[2][3] * result.m[0][2]);
+    result.m[1][3] =
+        -(m[0][3] * result.m[1][0] + m[1][3] * result.m[1][1] + m[2][3] * result.m[1][2]);
+    result.m[2][3] =
+        -(m[0][3] * result.m[2][0] + m[1][3] * result.m[2][1] + m[2][3] * result.m[2][2]);
+
     return result;
 }
