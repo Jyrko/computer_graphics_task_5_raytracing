@@ -18,7 +18,6 @@ class Camera {
 
     // Camera transformations
     Matrix4 getViewMatrix() const;
-    Matrix4 getInverseViewMatrix() const;
 
     // Ray generation for given pixel coordinates
     Ray getRay(int x, int y, int width, int height) const;

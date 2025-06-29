@@ -158,25 +158,3 @@ void Matrix4::set(int row, int col, float value) {
 float Matrix4::get(int row, int col) const {
     return m[row][col];
 }
-
-// Simplified inverse for view matrices (orthonormal)
-Matrix4 Matrix4::inverse() const {
-    Matrix4 result;
-
-    // For orthonormal matrices (like camera matrices), inverse = transpose of rotation part
-    // and negate translation part
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            result.m[i][j] = m[j][i];
-        }
-    }
-
-    result.m[0][3] =
-        -(m[0][3] * result.m[0][0] + m[1][3] * result.m[0][1] + m[2][3] * result.m[0][2]);
-    result.m[1][3] =
-        -(m[0][3] * result.m[1][0] + m[1][3] * result.m[1][1] + m[2][3] * result.m[1][2]);
-    result.m[2][3] =
-        -(m[0][3] * result.m[2][0] + m[1][3] * result.m[2][1] + m[2][3] * result.m[2][2]);
-
-    return result;
-}

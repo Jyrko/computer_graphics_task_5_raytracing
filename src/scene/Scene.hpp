@@ -14,13 +14,11 @@ class Scene {
 
     Scene();
 
-    // Scene setup
     void addSphere(const Sphere& sphere);
     void addLight(const Light& light);
     void setAmbientLight(const Color& ambient);
     void setBackgroundColor(const Color& background);
 
-    // Ray tracing
     struct HitInfo {
         bool hit;
         float t;

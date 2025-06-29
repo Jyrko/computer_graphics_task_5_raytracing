@@ -25,10 +25,6 @@ Matrix4 Camera::getViewMatrix() const {
     return Matrix4::lookAt(position, target, up);
 }
 
-Matrix4 Camera::getInverseViewMatrix() const {
-    return getViewMatrix().inverse();
-}
-
 Ray Camera::getRay(int x, int y, int width, int height) const {
     Vector3 cZ = (target - position).normalized();
     Vector3 cX = up.cross(cZ).normalized();

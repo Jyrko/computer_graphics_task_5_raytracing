@@ -21,10 +21,7 @@ class Sphere {
     Sphere();
     Sphere(const Vector3& center, float radius, const Material& material);
 
-    // Ray-sphere intersection
-    // Returns t value of intersection, or -1 if no intersection
     float intersect(const class Ray& ray) const;
 
-    // Get normal at point on sphere surface
     Vector3 getNormal(const Vector3& point) const;
 };

@@ -22,7 +22,6 @@ class Renderer {
     // Rendering
     void render(const Scene& scene, const Camera& camera);
     void present();
-    void clear(const Color& color);
 
     // Pixel manipulation
     void setPixel(int x, int y, const Color& color);

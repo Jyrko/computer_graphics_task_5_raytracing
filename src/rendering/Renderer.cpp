@@ -99,12 +99,6 @@ void Renderer::present() {
     SDL_RenderPresent(sdlRenderer);
 }
 
-void Renderer::clear(const Color& color) {
-    uint32_t clearColor = color.toRGB();
-    for (int i = 0; i < width * height; i++) {
-        pixels[i] = clearColor;
-    }
-}
 
 void Renderer::setPixel(int x, int y, const Color& color) {
     if (x >= 0 && x < width && y >= 0 && y < height) {

@@ -42,31 +42,40 @@ Scene::HitInfo Scene::raycast(const Ray& ray) const {
 }
 
 void Scene::createDefaultScene() {
-    // Clear existing scene
     spheres.clear();
     lights.clear();
 
-    // Create some spheres with different materials
-    Material redMaterial(Color(0.1f, 0.0f, 0.0f),  // ka - ambient
-                         Color(0.7f, 0.2f, 0.2f),  // kd - diffuse
-                         Color(1.0f, 1.0f, 1.0f),  // ks - specular
-                         50.0f                     // m - specular focus
+    Material redMaterial(
+        Color(0.1f, 0.0f, 0.0f),
+        Color(0.7f, 0.2f, 0.2f),
+        Color(1.0f, 1.0f, 1.0f),
+        50.0f
     );
 
-    Material greenMaterial(Color(0.0f, 0.1f, 0.0f), Color(0.2f, 0.7f, 0.2f),
-                           Color(1.0f, 1.0f, 1.0f), 30.0f);
+    Material greenMaterial(
+        Color(0.0f, 0.1f, 0.0f),
+        Color(0.2f, 0.7f, 0.2f),
+        Color(1.0f, 1.0f, 1.0f), 
+        10.0f
+    );
 
-    Material blueMaterial(Color(0.0f, 0.0f, 0.1f), Color(0.2f, 0.2f, 0.7f), Color(1.0f, 1.0f, 1.0f),
-                          80.0f);
+    Material blueMaterial(
+        Color(0.0f, 0.0f, 0.1f),
+        Color(0.2f, 0.2f, 0.7f),
+        Color(1.0f, 1.0f, 1.0f),
+        80.0f
+    );
 
-    // Add spheres
     addSphere(Sphere(Vector3(-2, 0, 0), 1.0f, redMaterial));
     addSphere(Sphere(Vector3(0, 0, 0), 1.0f, greenMaterial));
     addSphere(Sphere(Vector3(2, 0, 0), 1.0f, blueMaterial));
 
-    // Add a larger sphere in the back
-    Material yellowMaterial(Color(0.1f, 0.1f, 0.0f), Color(0.8f, 0.8f, 0.2f),
-                            Color(1.0f, 1.0f, 1.0f), 20.0f);
+    Material yellowMaterial(
+        Color(0.1f, 0.1f, 0.0f),
+        Color(0.8f, 0.8f, 0.2f),
+        Color(1.0f, 1.0f, 1.0f),
+        20.0f
+    );
     addSphere(Sphere(Vector3(0, -2, 3), 1.5f, yellowMaterial));
 
     // Add white point light
