@@ -16,14 +16,11 @@ class Camera {
     Camera();
     Camera(const Vector3& position, const Vector3& target, const Vector3& up, float fov);
 
-    // Camera transformations
     Matrix4 getViewMatrix() const;
 
-    // Ray generation for given pixel coordinates
     Ray getRay(int x, int y, int width, int height) const;
 
-    // Orbital camera controls
     void setDistance(float distance);
     void rotate(float deltaX, float deltaY);
-    void updatePosition();  // Update position based on rotations and distance
+    void updatePosition();
 };

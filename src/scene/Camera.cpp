@@ -42,7 +42,7 @@ Ray Camera::getRay(int x, int y, int width, int height) const {
     Vector3 vPrime = (q - pPrime).normalized();  // v' = (q - p') / ||q - p'||
 
     // Transform to world coordinates using camera basis vectors
-    Vector3 rayDirection = vPrime.x * cX + vPrime.y * cY + vPrime.z * cZ; // v = M⁻¹ * v'
+    Vector3 rayDirection = vPrime.x * cX + vPrime.y * cY + vPrime.z * cZ; // v = M^(-1) * v'
 
     return Ray(position, rayDirection);
 }
@@ -56,7 +56,6 @@ void Camera::rotate(float deltaX, float deltaY) {
     rotationX += deltaX;
     rotationY += deltaY;
 
-    // Clamp vertical rotation
     rotationX =
         std::max(-float(M_PI) / 2.0f + 0.1f, std::min(float(M_PI) / 2.0f - 0.1f, rotationX));
 

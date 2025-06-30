@@ -78,9 +78,7 @@ void Scene::createDefaultScene() {
     );
     addSphere(Sphere(Vector3(0, -2, 3), 1.5f, yellowMaterial));
 
-    // Add white point light
     addLight(Light(Vector3(5, 5, -5), Color::white()));
 
-    // Set ambient light
     setAmbientLight(Color(0.1f, 0.1f, 0.1f));
 }

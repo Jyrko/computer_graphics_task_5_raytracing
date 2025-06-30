@@ -18,29 +18,28 @@ float Sphere::intersect(const Ray& ray) const {
     // ||p + tv - ps|| = r
     Vector3 vecOrgToSpereCenter = ray.origin - center;
 
-        // Quadratic equation coefficients: t² + 2t·v·d + ||d||² - r² = 0
-    float a = ray.direction.dot(ray.direction);           // coefficient of t²
-    float b = 2.0f * ray.direction.dot(vecOrgToSpereCenter);                // coefficient of t (2t·v·d)
-    float c = vecOrgToSpereCenter.dot(vecOrgToSpereCenter) - radius * radius;                 // constant term (||d||² - r²)
+    // Quadratic equation coefficients: t² + 2t·v·d + ||d||² - r² = 0
+    float a = ray.direction.dot(ray.direction);
+    float b = 2.0f * ray.direction.dot(vecOrgToSpereCenter);
+    float c = vecOrgToSpereCenter.dot(vecOrgToSpereCenter) - radius * radius;
 
     float discriminant = b * b - 4 * a * c;
 
     if (discriminant < 0) {
-        return -1.0f;  // No intersection
+        return -1.0f;
     }
 
     float sqrt_discriminant = std::sqrt(discriminant);
     float t1 = (-b - sqrt_discriminant) / (2.0f * a);
     float t2 = (-b + sqrt_discriminant) / (2.0f * a);
 
-    // Return the closest positive intersection
     if (t1 > 0) {
         return t1;
     } else if (t2 > 0) {
         return t2;
     }
 
-    return -1.0f;  // No positive intersection
+    return -1.0f;
 }
 
 Vector3 Sphere::getNormal(const Vector3& point) const {
