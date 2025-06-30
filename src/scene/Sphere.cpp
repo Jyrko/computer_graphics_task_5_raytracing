@@ -18,7 +18,7 @@ float Sphere::intersect(const Ray& ray) const {
     // ||p + tv - ps|| = r
     Vector3 vecOrgToSpereCenter = ray.origin - center;
 
-    // Quadratic equation coefficients: t² + 2t·v·d + ||d||² - r² = 0
+    // Quadratic equation coefficients: t^2 + 2t·v·d + ||d||^2 - r^2 = 0
     float a = ray.direction.dot(ray.direction);
     float b = 2.0f * ray.direction.dot(vecOrgToSpereCenter);
     float c = vecOrgToSpereCenter.dot(vecOrgToSpereCenter) - radius * radius;
